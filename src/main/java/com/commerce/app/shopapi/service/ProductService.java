@@ -7,4 +7,5 @@ import com.commerce.app.shopapi.model.Product;
 public interface ProductService {
     Product saveProduct(Product product);
     List<Product> getAllProducts();
+    Product getProductById(long id);
 }
