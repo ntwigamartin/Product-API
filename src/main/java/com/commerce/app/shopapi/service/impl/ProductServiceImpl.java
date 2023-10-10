@@ -10,7 +10,7 @@ import com.commerce.app.shopapi.repository.ProductRepository;
 import com.commerce.app.shopapi.service.ProductService;
 
 @Service
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
 
     public ProductServiceImpl(ProductRepository productRepository) {
@@ -30,7 +30,20 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public Product getProductById(long id) {
         return productRepository.findById(id)
-        .orElseThrow(()-> new ResourceNotFoundException("product", "id", id));
+                .orElseThrow(() -> new ResourceNotFoundException("product", "id", id));
     }
-    
+
+    @Override
+    public Product updateProduct(Product product, long id) {
+        Product existingProduct = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("product", "id", id));
+
+        existingProduct.setName(product.getName());
+        existingProduct.setPrice(product.getPrice());
+
+        productRepository.save(existingProduct);
+        return existingProduct;
+
+    }
+
 }
