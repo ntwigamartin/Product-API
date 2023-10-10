@@ -1,7 +1,10 @@
 package com.commerce.app.shopapi.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,5 +26,11 @@ public class ProductController {
     @PostMapping
     public ResponseEntity<Product> createProduct(@RequestBody Product product) {
         return new ResponseEntity<Product>(productService.saveProduct(product), HttpStatus.CREATED);
+    }
+
+    // Get all products
+    @GetMapping
+    public ResponseEntity<List<Product>> getAllProducts() {
+        return new ResponseEntity<List<Product>>(productService.getAllProducts(), HttpStatus.OK);
     }
 }
